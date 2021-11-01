@@ -1,0 +1,16 @@
+POST http://localhost:3000/employees/add
+content-type: application/json
+
+{
+    "id": "aa41aa1114",
+    "name": "Swen 2",
+    "department": "operations",
+    "subDepartment": "Other",
+    "email": "swen@paintyourlife.com",
+    "phone": "777222333",
+    "status": "onVacation",
+    "shift": {
+      "start": "17:00",
+      "length": 8
+    }
+}
