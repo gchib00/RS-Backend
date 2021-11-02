@@ -1,4 +1,4 @@
-import { NewEmployeeOperation, EmployeeStatus, AcceptableSubDepartment } from './types';
+import { NewEmployeeOperation, EmployeeStatus, AcceptableSubDepartment, EmployeeShift } from './types';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -27,24 +27,35 @@ const parseEmail = (email: unknown): string => {
   }
   return email
 };
-const parsePhoneNum = (phone: unknown): string | number => {
-  if(!phone || !isString(phone) || isNaN){
-    throw new Error('Phone number is missing or is of wrong format');
+const parsePhoneNum = (phone: any): string | number => {
+  if(!phone){throw new Error('Phone number is missing')}
+  if(!isString(phone) && isNaN(phone)){
+    throw new Error('Phone number is of wrong format')
   }
   return phone
 };
-const parseSubDepartment = (subDepartment: unknown): AcceptableSubDepartment => {
+const parseSubDepartment = (subDepartment: any): AcceptableSubDepartment => {
   if(!subDepartment || !isAccepableSubDepartment(subDepartment)){ 
     throw new Error('Sub-department is of wrong format');
   }
   return subDepartment;
 };
 const parseStatus = (status: any): EmployeeStatus => {
-  if(!status ||isAcceptableStatus(status)) {
+  if(!status || !isAcceptableStatus(status)) {
     throw new Error('Status is missing or is of wrong type');
   }
   return status;
-}
+};
+const parseShift = (shift: any): EmployeeShift | undefined => {
+  if(!shift) {return undefined};
+  if(!shift.start || !isString(shift.start)) {
+    throw new Error('Shift start value is missing or is of wrong format');
+  }
+  if(!shift.length || isNaN(shift.length)) {
+    throw new Error('Shift length value is missing or is of wrong format');
+  }
+  return shift;
+};
 /////////
 
 export const processNewOperationsEmployee = (bodyObj: any): NewEmployeeOperation => {
@@ -55,11 +66,8 @@ export const processNewOperationsEmployee = (bodyObj: any): NewEmployeeOperation
     subDepartment: parseSubDepartment(bodyObj.subDepartment),
     email: parseEmail(bodyObj.email),
     phone: parsePhoneNum(bodyObj.phone),
-    status: parseStatus(bodyObj.status)
-    shift: {
-      start: parseStartTime(bodyObj.shift.start),
-      length:parseShiftLength(bodyObj.shift.length)
-    }
+    status: parseStatus(bodyObj.status),
+    shift: parseShift(bodyObj.shift)
   }
-  return 
+  return newEmployee;
 }
