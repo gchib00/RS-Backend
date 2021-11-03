@@ -23,7 +23,6 @@ export interface NewEmployeeCS extends NewEmployeeBase {
 }
 export interface NewEmployeeOperation extends NewEmployeeBase {
   department: AcceptableDepartment.operations;
-  // subDepartment: 'Technical Department' | 'Logistics' | 'Billing Department' | 'Other';
   subDepartment: AcceptableSubDepartment;
 }
 export enum EmployeeStatus {
