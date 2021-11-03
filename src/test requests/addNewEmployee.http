@@ -1,16 +1,40 @@
 POST http://localhost:3000/employees/add
 content-type: application/json
 
+# {
+#     "name": "Swen",
+#     "department": "operations",
+#     "subDepartment": "Other",
+#     "email": "swen@paintyourlife.com",
+#     "phone": "777222333",
+#     "status": "onVacation",
+#     "shift": {
+#       "start": "17:00",
+#       "length": 8
+#     }
+# }
 {
-    "id": "aa41aa1114",
-    "name": "Swen 5",
-    "department": "operations",
-    "subDepartment": "Other",
-    "email": "swen@paintyourlife.com",
-    "phone": "777222333",
-    "status": "onVacation",
+    "name": "Emily",
+    "department": "cs",
+    "type": "Other",
+    "team": "test",
+    "email": "emily@paintyourlife.com",
+    "phone": "43555214",
+    "status": "active",
     "shift": {
-      "start": "17:00",
+      "start": "13:00",
       "length": 8
     }
 }
+# {
+#     "name": "Rick",
+#     "department": "editing",
+#     "type": "QC",
+#     "email": "rick@paintyourlife.com",
+#     "phone": "54322345",
+#     "status": "active",
+#     "shift": {
+#       "start": "17:00",
+#       "length": 8
+#     }
+# }
