@@ -62,4 +62,10 @@ router.get('/', async (_req: any, res: any) => {
   res.send(data)
 });
 
+router.delete('/delete/:id', async (req: any, res: any) => {
+  const id = req.params.id;
+  const response = await Employee.findByIdAndRemove(id);
+  res.send(response);
+});
+
 module.exports = router

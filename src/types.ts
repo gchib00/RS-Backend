@@ -5,7 +5,7 @@ export interface NewEmployeeBase {
   email: string;
   phone: string | number;
   status: EmployeeStatus;
-  shift?: EmployeeShift
+  shift?: EmployeeShift 
 }
 export interface EmployeeShift {
   start: string;
