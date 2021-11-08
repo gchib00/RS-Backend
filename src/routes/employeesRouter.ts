@@ -3,7 +3,7 @@ const express = require('express');
 let router = express.Router();
 const Employee = require('../models/employee');
 
-router.post('/add', (req: any, res: any) => {
+router.post('/add', async (req: any, res: any) => {
   let newEmployee = new Employee({}); //variable needs to be initialized so, otherwise mongoose thorws error for '.save' command below (it's a bug)
   switch(req.body.department){
     case('operations'):{
@@ -52,9 +52,8 @@ router.post('/add', (req: any, res: any) => {
     }
     default: throw new Error('Department not found!');
   };
-  newEmployee.save()
-    .then((result: unknown) => res.send(result))
-    .catch((error: unknown) => console.error(error))
+  await newEmployee.save().catch((error: unknown) => console.error(error))
+  res.send(await Employee.find()) //return updated data
 });
 
 router.get('/', async (_req: any, res: any) => {
@@ -64,8 +63,9 @@ router.get('/', async (_req: any, res: any) => {
 
 router.delete('/delete/:id', async (req: any, res: any) => {
   const id = req.params.id;
-  const response = await Employee.findByIdAndRemove(id);
-  res.send(response);
+  await Employee.deleteOne({ id: id });
+  const newData = await Employee.find();
+  res.send(newData);
 });
 
 module.exports = router
