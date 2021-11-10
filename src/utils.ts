@@ -18,9 +18,6 @@ const isString = (text: unknown): text is string => {
 const isAcceptableStatus = (param: any): param is EmployeeStatus => {
   return Object.values(EmployeeStatus).includes(param);
 };
-// const isAccepableDepartment = (param: any): param is AcceptableDepartment => {
-//   return Object.values(AcceptableDepartment).includes(param);
-// };
 const isAccepableSubDepartment = (param: any): param is AcceptableSubDepartment => {
   return Object.values(AcceptableSubDepartment).includes(param);
 };
@@ -52,16 +49,10 @@ const parsePhoneNum = (phone: any): string | number => {
   }
   return phone
 };
-// const parseDepartment = (department: any): AcceptableDepartment => {
-//   if(!department || !isAccepableDepartment(department)){ 
-//     throw new Error('Sub-department is of wrong format');
-//   }
-//   return department;
-// };
 const parseSubDepartment = (subDepartment: any): AcceptableSubDepartment => {
   if(!subDepartment || !isAccepableSubDepartment(subDepartment)){ 
     throw new Error('Sub-department is of wrong format');
-  }
+  } 
   return subDepartment;
 };
 const parseStatus = (status: any): EmployeeStatus => {

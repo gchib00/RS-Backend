@@ -3,7 +3,7 @@ export interface NewEmployeeBase {
   name: string;
   department: AcceptableDepartment;
   email: string;
-  phone: string | number;
+  phone?: string | number | undefined;
   status: EmployeeStatus;
   shift?: EmployeeShift 
 }
