@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-const Schema = mongoose.Schema
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
 const employeeSchema = new Schema({
   id: {type: String, required: true},
@@ -9,7 +9,7 @@ const employeeSchema = new Schema({
   team: String,
   subDepartment: String,
   email: {type: String, required: true},
-  phone: {type: String || Number, required: true},
+  phone: String || Number,
   status: {type: String, required: true},
   shift: {
     start: String,

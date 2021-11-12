@@ -1,0 +1,8 @@
+POST http://wwww.localhost:3005/auth/register
+Content-Type: application/json
+
+{
+  "username": "testName",
+  "password": "pass123",
+  "email": "email@mail.com"
+}

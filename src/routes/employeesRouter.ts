@@ -1,6 +1,6 @@
 import { processNewOperationsEmployee, processNewCsEmployee, processNewEditorEmployee } from '../utils';
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
 const Employee = require('../models/employee');
 
 router.post('/add', (req: any, res: any) => {

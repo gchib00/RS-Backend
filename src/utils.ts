@@ -42,9 +42,8 @@ const parseEmail = (email: unknown): string => {
   }
   return email
 };
-const parsePhoneNum = (phone: any): string | number => {
-  if(!phone){throw new Error('Phone number is missing')}
-  if(!isString(phone) && isNaN(phone)){
+const parsePhoneNum = (phone: any): string | number | undefined => {
+  if(!isString(phone) && isNaN(phone) && phone!==undefined){
     throw new Error('Phone number is of wrong format')
   }
   return phone
