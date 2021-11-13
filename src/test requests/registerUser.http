@@ -2,7 +2,8 @@ POST http://wwww.localhost:3005/auth/register
 Content-Type: application/json
 
 {
-  "username": "testName",
-  "password": "pass123",
-  "email": "email@mail.com"
+  "username": "test2",
+  "password": "12abc3123",
+  "email": "fakeEmailmail.com",
+  "adminRights": false
 }

@@ -7,13 +7,17 @@ import {
   NewEmployeeCS, 
   NewEmployeeEditor, 
   CSEmployeeType, 
-  EditorEmployeeType } from './types';
+  EditorEmployeeType,
+  User } from './types';
 
 const { v4: uuidv4 } = require('uuid');
 
 //type-guards:
 const isString = (text: unknown): text is string => {
   return typeof text === 'string';
+};
+const isBoolean = (value: unknown): value is boolean => {
+  return typeof value === 'boolean'
 };
 const isAcceptableStatus = (param: any): param is EmployeeStatus => {
   return Object.values(EmployeeStatus).includes(param);
@@ -39,6 +43,9 @@ const parseName = (name: unknown): string => {
 const parseEmail = (email: unknown): string => {
   if(!email || !isString(email)){
     throw new Error('Email is missing or is of wrong format');
+  }
+  if (!email.includes('@') || !email.includes('.')) {
+    throw new Error('Enter a valid email address');
   }
   return email
 };
@@ -89,7 +96,22 @@ const parseEditorType = (type: any): EditorEmployeeType  => {
   }
   return type;
 };
-/////////
+const parsePassword = (password: unknown): string => {
+  if(!password || !isString(password)){
+    throw new Error('Password is of wrong format')
+  }
+  if(password.length > 150 || password.length < 5) {
+    throw new Error('Password must be longer than 5 characters')
+  }
+  return password;
+};
+const validateBoolean = (value: unknown): boolean => {
+  if(value==undefined || !isBoolean(value)){
+    throw new Error('adminRights must be set as either true or false')
+  }
+  return value;
+}
+ /////////
 
 export const processNewOperationsEmployee = (bodyObj: any): NewEmployeeOperation => {
   const newEmployee: NewEmployeeOperation = { 
@@ -132,3 +154,13 @@ export const processNewEditorEmployee = (bodyObj: any): NewEmployeeEditor => {
   }
   return newEmployee;
 }
+export const processNewUser = (bodyObj: any): User => {
+  const newUser: User = {
+    id: uuidv4(),
+    username: parseName(bodyObj.username),
+    password: parsePassword(bodyObj.password),
+    email: parseEmail(bodyObj.email),
+    adminRights: validateBoolean(bodyObj.adminRights)
+  }
+  return newUser;
+};

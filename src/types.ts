@@ -1,3 +1,4 @@
+//Employees:
 export interface NewEmployeeBase {
   id: string;
   name: string;
@@ -26,7 +27,8 @@ export interface NewEmployeeOperation extends NewEmployeeBase {
   subDepartment: AcceptableSubDepartment;
 }
 export enum EmployeeStatus {
-  'onVacation',
+  'onVacation',//type-guards:
+
   'active'
 }
 export enum CSEmployeeType {
@@ -52,3 +54,12 @@ export enum AcceptableDepartment {
   editing = 'editing'
 }
 export type NewStandardEmployeeType = NewEmployeeOperation | NewEmployeeCS | NewEmployeeEditor;
+
+//Users:
+export interface User {
+  id: string,
+  username: string,
+  password: string,
+  email: string,
+  adminRights: boolean
+}

@@ -68,9 +68,13 @@ router.get('/', async (_req: any, res: any) => {
 
 router.delete('/delete/:id', async (req: any, res: any) => {
   const id = req.params.id;
-  await Employee.deleteOne({ id: id });
-  const newData = await Employee.find();
-  res.send(newData);
+  try {
+    await Employee.deleteOne({ id: id });
+    const newData = await Employee.find();
+    res.send(newData);
+  } catch {
+    res.status(401);
+  }
 });
 
 module.exports = router
