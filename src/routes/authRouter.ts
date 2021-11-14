@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user'); 
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 //REGISTRATION:
 const hashPassword = async (password: string) => {
@@ -38,8 +39,12 @@ router.post('/login', async (req: any, res: any) => {
     const user = await User.findOne({name: req.body.name});
     console.log('USER = ', user)
     const match: boolean = await bcrypt.compare(req.body.password, user.password);
-    if(match){res.status(200).send(user)}
-    else {res.status(401).send('Username or password is incorrect')}
+    if(match){
+      const token = jwt.sign({_id: user._id}, process.env.SECRET_VALUE_FOR_TOKEN);
+      res.header('token', token).send(token);
+    } else {
+      res.status(401).send('Username or password is incorrect');
+    };
   } catch {
     res.status(501)
   }
