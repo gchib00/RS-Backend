@@ -1,0 +1,2 @@
+GET http://wwww.localhost:3005/employees
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTkyZDllOTBlMTdjMDA0MzI3NTMyNWMiLCJpYXQiOjE2MzcwMTQwMDN9.ZW6cfVBTCsWejoOnn3Rj5ULFT6ECHKI3GxsqSxnzO9M

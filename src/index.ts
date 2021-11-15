@@ -12,8 +12,7 @@ env.config();
 
 mongoose.connect(process.env.MONGODB_CONNECT as string)
   .then(() => console.log('connected to DB'))
-  .catch((error) => console.error(error)) 
-
+  .catch((error) => console.error(error));
 const PORT = 3005;
 
 app.get('/ping', (_req, res) => {
@@ -26,4 +25,9 @@ app.use('/auth', authRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+//404 page:
+app.use((_req, res) => {
+  res.status(404).send('404');
 });
