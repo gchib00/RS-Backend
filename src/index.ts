@@ -15,11 +15,6 @@ mongoose.connect(process.env.MONGODB_CONNECT as string)
   .catch((error) => console.error(error));
 const PORT = 3005;
 
-app.get('/ping', (_req, res) => {
-  console.log('someone pinged here');
-  res.send('pong');
-});
-
 app.use('/employees', employeesRouter);
 app.use('/auth', authRouter);
 

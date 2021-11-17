@@ -36,11 +36,19 @@ router.post('/register', async (req: any, res: any) => {
 router.post('/login', async (req: any, res: any) => {
   try {
     // await bcrypt.compare(entry, user.password)
-    const user = await User.findOne({name: req.body.name});
+    const userData = await User.findOne({name: req.body.name});
+    const user = {
+      _id: userData._id,
+      username: userData.username,
+      password: userData.password,
+      email: userData.email,
+      adminRights: userData.adminRights
+    }
     const match: boolean = await bcrypt.compare(req.body.password, user.password);
     if(match){
       const token = jwt.sign({_id: user._id}, process.env.SECRET_VALUE_FOR_TOKEN);
-      res.header('auth-token', token).send(token);
+      const responseData = {token: token, user: user}
+      res.header('auth-token', token).send(responseData);
     } else {
       res.status(401).send('Username or password is incorrect');
     };

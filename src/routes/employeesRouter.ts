@@ -2,7 +2,6 @@ import { processNewOperationsEmployee, processNewCsEmployee, processNewEditorEmp
 const express = require('express');
 const router = express.Router();
 const Employee = require('../models/employee');
-const authenticateUser = require('./middleware/verifyToken');
 
 router.post('/add', (req: any, res: any) => {
   let newEmployee = new Employee({}); //variable needs to be initialized so, otherwise mongoose thorws error for '.save' command below (it's a bug)
@@ -62,7 +61,7 @@ router.post('/add', (req: any, res: any) => {
   saveAndReturnData() //need a separate async function for saving/returning data, otherwise processor (from utils) function will cause it to get stuck
 });
 
-router.get('/', authenticateUser, async (_req: any, res: any) => {
+router.get('/', async (_req: any, res: any) => {
   const data = await Employee.find()
   res.send(data)
 });

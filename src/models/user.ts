@@ -17,6 +17,10 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true
+  },
+  adminRights: {
+    type: Boolean,
+    required: true
   }
 }, {timestamps: true});
 
