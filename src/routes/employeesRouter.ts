@@ -77,4 +77,37 @@ router.delete('/delete/:id', async (req: any, res: any) => {
   }
 });
 
+router.patch('/createTeam/:id', async (req: any, res: any) => {
+  let response;
+  const id = req.params.id;
+  try {
+    const employee = await Employee.findOne({id: id});
+    if (req.body.department !== employee.department){ 
+      //return error if user is from different department:
+      response = `${employee.name} is not part of this department`;
+      return res.status(401).send(response)
+    };
+    switch(employee.department) {
+      case('cs'): {
+        response = await Employee.findOneAndUpdate({id: id}, {
+          team: req.body.team,
+          type: 'Team Leader'
+        });
+        break;
+      }
+      case('editing'): {
+        response = await Employee.findOneAndUpdate({id: id}, {
+          team: req.body.team,
+          type: 'QC'
+        });
+        break;
+      }
+    };
+    return res.status(200).json(await Employee.find({})); //return updated eployees' list
+  } catch(err) {
+    response = err;
+    return res.status(401).send(response)
+  }
+});
+
 module.exports = router
