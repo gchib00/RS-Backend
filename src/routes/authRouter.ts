@@ -35,8 +35,7 @@ router.post('/register', async (req: any, res: any) => {
 //LOGIN:
 router.post('/login', async (req: any, res: any) => {
   try {
-    // await bcrypt.compare(entry, user.password)
-    const userData = await User.findOne({name: req.body.name});
+    const userData = await User.findOne({username: req.body.username});
     const user = {
       _id: userData._id,
       username: userData.username,
