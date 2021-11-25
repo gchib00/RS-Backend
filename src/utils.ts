@@ -8,7 +8,8 @@ import {
   NewEmployeeEditor, 
   CSEmployeeType, 
   EditorEmployeeType,
-  User } from './types';
+  User, 
+  FAQItem} from './types';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -86,13 +87,13 @@ const parseTeam = (team: any): string | undefined => {
 };
 const parseCsType = (type: any): CSEmployeeType  => {
   if(!type || !isAcceptableCSType(type)){
-    throw new Error('Type is missing or is an unaccepted type');
+    throw new Error('Type is missing or is of unaccepted type');
   }
   return type;
 };
 const parseEditorType = (type: any): EditorEmployeeType  => {
   if(!type || !isAcceptableEditorType(type)){
-    throw new Error('Type is missing or is an unaccepted type');
+    throw new Error('Type is missing or is of unaccepted type');
   }
   return type;
 };
@@ -110,8 +111,20 @@ const validateBoolean = (value: unknown): boolean => {
     throw new Error('adminRights must be set as either true or false')
   }
   return value;
-}
- /////////
+};
+const parseQuestion = (question: unknown): string => {
+  if(!question || !isString(question)){
+    throw new Error('Question is missing or is of wrong format')
+  } 
+  return question;
+};
+const parseAnswer = (answer: unknown): string => {
+  if(!answer || !isString(answer)){
+    throw new Error('Answer is missing or is of wrong format')
+  } 
+  return answer;
+};
+/////////
 
 export const processNewOperationsEmployee = (bodyObj: any): NewEmployeeOperation => {
   const newEmployee: NewEmployeeOperation = { 
@@ -153,7 +166,7 @@ export const processNewEditorEmployee = (bodyObj: any): NewEmployeeEditor => {
     shift: parseShift(bodyObj.shift)
   }
   return newEmployee;
-}
+};
 export const processNewUser = (bodyObj: any): User => {
   const newUser: User = {
     id: uuidv4(),
@@ -163,4 +176,11 @@ export const processNewUser = (bodyObj: any): User => {
     adminRights: validateBoolean(bodyObj.adminRights)
   }
   return newUser;
+};
+export const processNewFAQItem = (bodyObj: any): FAQItem => {
+  const newFAQItem = {
+    question: parseQuestion(bodyObj.question),
+    answer: parseAnswer(bodyObj.answer)
+  }
+  return newFAQItem;
 };

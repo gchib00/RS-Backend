@@ -63,3 +63,9 @@ export interface User {
   email: string,
   adminRights: boolean
 }
+
+//FAQ:
+export interface FAQItem {
+  question: string;
+  answer: string;
+}

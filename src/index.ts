@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 const employeesRouter = require('./routes/employeesRouter');
 const authRouter = require('./routes/authRouter');
+const faqRouter = require('./routes/faqRouter');
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ const PORT = 3005;
 
 app.use('/employees', employeesRouter);
 app.use('/auth', authRouter);
+app.use('/faq', faqRouter)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

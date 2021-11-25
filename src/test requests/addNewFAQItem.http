@@ -1,0 +1,7 @@
+POST http://wwww.localhost:3005/faq/add
+Content-Type: application/json
+
+{
+  "question": "What am I doing?",
+  "answer": "Testing"
+}
