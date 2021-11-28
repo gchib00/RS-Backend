@@ -106,7 +106,7 @@ router.patch('/createTeam/:id', async (req: any, res: any) => {
     return res.status(200).json(await Employee.find({})); //return updated eployees' list
   } catch(err) {
     response = err;
-    return res.status(401).send(response)
+    return res.status(401).send(response);
   }
 });
 

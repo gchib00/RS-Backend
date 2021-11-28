@@ -11,16 +11,29 @@ router.get('/', async (_req: any, res: any) => {
 });
 
 router.post('/add', async (req: any, res: any) => {
-  const processedObject = processNewFAQItem(req.body);
-  const newFAQItem = new FAQ({
-    question: processedObject.question,
-    answer: processedObject.answer
-  });
-  if (!newFAQItem.question || !newFAQItem.answer) {throw new Error('Question or answer is missing')};
-  await newFAQItem.save();
-  const updatedFAQ = await FAQ.find({});
-  res.status(200).send(updatedFAQ)
+  try {
+    const processedObject = processNewFAQItem(req.body);
+    const newFAQItem = new FAQ({
+      question: processedObject.question,
+      answer: processedObject.answer
+    });
+    await newFAQItem.save();
+    const updatedFAQ = await FAQ.find({});
+    return res.status(200).send(updatedFAQ);
+  } catch(err) {
+    return res.status(401).send(`${err}`);
+  }
 });
+
+router.delete('/delete/:question', async (req: any, res: any) => {
+  try {
+    await FAQ.deleteOne({question: req.params.question});
+    const updatedFAQ = await FAQ.find({});
+    res.status(201).send(updatedFAQ)
+  } catch (err) {
+    res.status(401).send(`${err}`)
+  }
+})
 
 
 module.exports = router;
