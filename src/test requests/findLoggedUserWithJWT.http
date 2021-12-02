@@ -1,0 +1,6 @@
+POST http://wwww.localhost:3005/auth/loggedUser
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTlkNjg2NGJiMTQ2OTIzYzYzMjY2MTAiLCJpYXQiOjE2MzgzOTY4NjF9.AZJEY9njSTQ-16c3otPFo9n435BrWSbUA1ebRjlkELE"
+}

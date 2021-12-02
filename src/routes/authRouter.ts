@@ -56,4 +56,18 @@ router.post('/login', async (req: any, res: any) => {
   }
 });
 
+//GET LOGGED USER:
+router.post('/loggedUser', async (req: any, res: any) => {
+  const token = req.body.token;
+  if (token) {
+    try {
+      const authenticatedUser = await jwt.verify(token, process.env.SECRET_VALUE_FOR_TOKEN);
+      const user = await User.find({_id: authenticatedUser._id});
+      res.status(201).send(user);
+    } catch (err) {
+      res.status(405).send(`${err}`);
+    }
+  }
+});
+
 module.exports = router;
