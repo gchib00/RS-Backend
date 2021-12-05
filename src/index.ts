@@ -16,6 +16,7 @@ mongoose.connect(process.env.MONGODB_CONNECT as string)
   .catch((error) => console.error(error));
 const PORT = process.env.PORT || 3005;
 
+app.use(express.static('build'))
 app.use('/employees', employeesRouter);
 app.use('/auth', authRouter);
 app.use('/faq', faqRouter);
