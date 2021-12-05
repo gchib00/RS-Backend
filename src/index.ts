@@ -14,7 +14,7 @@ env.config();
 mongoose.connect(process.env.MONGODB_CONNECT as string)
   .then(() => console.log('connected to DB'))
   .catch((error) => console.error(error));
-const PORT = 3005;
+const PORT = process.env.PORT || 3005;
 
 app.use('/employees', employeesRouter);
 app.use('/auth', authRouter);
