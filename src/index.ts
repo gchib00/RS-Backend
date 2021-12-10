@@ -25,6 +25,30 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
+app.get('/sendTestEmail', () => {
+  // using Twilio SendGrid's v3 Node.js Library
+  // https://github.com/sendgrid/sendgrid-nodejs
+  const sgMail = require('@sendgrid/mail')
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  console.log('recipient ========', process.env.TEST_RECIPIENT)
+  console.log('sender ========', process.env.TEST_SENDER)
+  const msg = {
+    to: process.env.TEST_RECIPIENT, // Change to your recipient
+    from: process.env.TEST_SENDER, // Change to your verified sender
+    subject: 'Test email using SendGrid',
+    text: 'This is test text',
+    html: '<strong>second test email</strong>',
+  }
+  sgMail
+  .send(msg)
+  .then(() => {
+    return console.log('Email sent')
+  })
+  .catch((error: any) => {
+    return console.error(error)
+  })
+})
+
 //404 page:
 app.use((_req, res) => {
   res.status(404).send('404');
