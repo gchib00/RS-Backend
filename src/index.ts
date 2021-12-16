@@ -25,28 +25,36 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.get('/sendTestEmail', () => {
-  // using Twilio SendGrid's v3 Node.js Library
-  // https://github.com/sendgrid/sendgrid-nodejs
-  const sgMail = require('@sendgrid/mail')
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  console.log('recipient ========', process.env.TEST_RECIPIENT)
-  console.log('sender ========', process.env.TEST_SENDER)
-  const msg = {
-    to: process.env.TEST_RECIPIENT, // Change to your recipient
-    from: process.env.TEST_SENDER, // Change to your verified sender
-    subject: 'Test email using SendGrid',
-    text: 'This is test text',
-    html: '<strong>second test email</strong>',
+app.get('/sendTestEmail', (_req, _res) => {
+  "use strict";
+  const nodemailer = require("nodemailer");
+  async function main() {
+    // Generate test SMTP service account from ethereal.email
+    // Only needed if you don't have a real mail account for testing
+    // let testAccount = await nodemailer.createTestAccount();
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.TEST_SENDER_GMAILUSER,
+        pass: process.env.TEST_SENDER_GMAILPASSWORD ,
+      },
+    });
+  
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: `"Giorgi" <${process.env.TEST_SENDER_GMAILUSER}>`, 
+      to: "chibukhashviligiorgi@gmail.com",
+      subject: "My test email", 
+      text: "Hello from nodejs",
+      html: "<h4>Hey, this is a test email.</h4>", 
+    });
+    console.log("Message sent: %s", info.messageId);  
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   }
-  sgMail
-  .send(msg)
-  .then(() => {
-    return console.log('Email sent')
-  })
-  .catch((error: any) => {
-    return console.error(error)
-  })
+  
+  main().catch(console.error);
 })
 
 //404 page:
