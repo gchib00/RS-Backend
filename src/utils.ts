@@ -9,7 +9,8 @@ import {
   CSEmployeeType, 
   EditorEmployeeType,
   User, 
-  FAQItem} from './types';
+  FAQItem,
+  EmailNotification} from './types';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -124,6 +125,12 @@ const parseAnswer = (answer: unknown): string => {
   } 
   return answer;
 };
+const parseMessage = (message: unknown): string => {
+  if(!message || !isString(message)){
+    throw new Error('Message is missing or is of wrong format')
+  }
+  return message;
+};
 /////////
 
 export const processNewOperationsEmployee = (bodyObj: any): NewEmployeeOperation => {
@@ -183,4 +190,11 @@ export const processNewFAQItem = (bodyObj: any): FAQItem => {
     answer: parseAnswer(bodyObj.answer)
   }
   return newFAQItem;
+};
+export const processEmailNotification = (bodyObj: any): EmailNotification => {
+  const newEmailNotification = {
+    message: parseMessage(bodyObj.message),
+    emailSender: parseEmail(bodyObj.emailSender)
+  }
+  return newEmailNotification;
 };

@@ -69,3 +69,9 @@ export interface FAQItem {
   question: string;
   answer: string;
 }
+
+//Emails:
+export interface EmailNotification {
+  message: string;
+  emailSender: string;
+}

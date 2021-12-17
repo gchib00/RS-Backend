@@ -1,0 +1,7 @@
+POST http://localhost:3005/email/artistToSupplier
+Content-Type: application/json
+
+{
+  "message": "Hello, this is a test message sent from RS backend",
+  "emailSender": "chibukhashviligiorgi@gmail.com"
+}
