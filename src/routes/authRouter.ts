@@ -52,7 +52,7 @@ router.post('/login', async (req: any, res: any) => {
       res.status(401).send('Username or password is incorrect');
     };
   } catch {
-    res.status(501)
+    res.status(401).send('Username or password is incorrect');
   }
 });
 

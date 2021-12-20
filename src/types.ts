@@ -75,3 +75,6 @@ export interface EmailNotification {
   message: string;
   emailSender: string;
 }
+export interface MessageToSupplier extends EmailNotification {
+  orderID: string;
+}

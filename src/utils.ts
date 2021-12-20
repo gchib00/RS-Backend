@@ -73,7 +73,7 @@ const parseShift = (shift: any): EmployeeShift | undefined => {
   if(!shift) {return undefined};
   if(!shift.start || !isString(shift.start)) {
     throw new Error('Shift start value is missing or is of wrong format');
-  }
+  }parseOrderID
   if(!shift.length || isNaN(shift.length)) {
     throw new Error('Shift length value is missing or is of wrong format');
   }
@@ -130,6 +130,12 @@ const parseMessage = (message: unknown): string => {
     throw new Error('Message is missing or is of wrong format')
   }
   return message;
+};
+const parseOrderID = (orderID: unknown): string => {
+  if(!orderID || !isString(orderID) || !orderID.includes('_')){
+    throw new Error('Order ID is missing or is of wrong format')
+  }
+  return orderID;
 };
 /////////
 
@@ -194,7 +200,8 @@ export const processNewFAQItem = (bodyObj: any): FAQItem => {
 export const processEmailNotification = (bodyObj: any): EmailNotification => {
   const newEmailNotification = {
     message: parseMessage(bodyObj.message),
-    emailSender: parseEmail(bodyObj.emailSender)
+    emailSender: parseEmail(bodyObj.emailSender),
+    orderID: parseOrderID(bodyObj.orderID)
   }
   return newEmailNotification;
 };

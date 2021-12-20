@@ -1,13 +1,14 @@
+import { MessageToSupplier } from "../types";
+import { Request, Response } from 'express';
 import { processEmailNotification } from "../utils";
-
 const express = require('express');
 const router = express.Router();
 const nodemailer = require("nodemailer");
 
-router.post('/artistToSupplier', (req: any, res: any) => {
+router.post('/artistToSupplier', (req: Request, res: Response) => {
   "use strict";
-  const processedObj = processEmailNotification(req.body);
-  if (!processedObj) {res.status(401)};
+  const processedObj: MessageToSupplier = processEmailNotification(req.body) as MessageToSupplier;
+  if (!processedObj) {res.status(401)}; 
   async function main() {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -21,7 +22,7 @@ router.post('/artistToSupplier', (req: any, res: any) => {
     let info = await transporter.sendMail({
       from: `"Giorgi" <${process.env.TEST_SENDER_GMAILUSER}>`, 
       to: processedObj.emailSender,
-      subject: "Test notification", 
+      subject: `Test notification regarding order #${processedObj.orderID}`, 
       text: "Hello from the server.",
       html: `<h4>${processedObj.message}<h4>`, 
     });
