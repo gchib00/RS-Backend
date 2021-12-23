@@ -95,13 +95,7 @@ router.post('/artistToSupplier', (req: Request, res: Response) => {
         // });
         // console.log("Message sent: %s", info.messageId);  
         // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        
-
-        //testing zone:
-        console.log('req.body: ');
-        console.log(req.body);
-        /////////////
-        res.status(201).send('Image was sent successfully');
+        // res.status(201).send('Image was sent successfully');
       }
     } catch (err) { 
       res.status(401).send(err)
