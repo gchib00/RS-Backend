@@ -1,9 +1,10 @@
 import { processNewOperationsEmployee, processNewCsEmployee, processNewEditorEmployee } from '../utils';
+import { Request, Response } from 'express';
 const express = require('express');
 const router = express.Router();
 const Employee = require('../models/employee');
 
-router.post('/add', (req: any, res: any) => {
+router.post('/add', (req: Request, res: any) => {
   let newEmployee = new Employee({}); //variable needs to be initialized so, otherwise mongoose thorws error for '.save' command below (it's a bug)
   switch(req.body.department){
     case('operations'):{
@@ -61,12 +62,12 @@ router.post('/add', (req: any, res: any) => {
   saveAndReturnData() //need a separate async function for saving/returning data, otherwise processor (from utils) function will cause it to get stuck
 });
 
-router.get('/', async (_req: any, res: any) => {
+router.get('/', async (_req: Request, res: Response) => {
   const data = await Employee.find()
   res.send(data)
 });
 
-router.delete('/delete/:id', async (req: any, res: any) => {
+router.delete('/delete/:id', async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     await Employee.deleteOne({ id: id });
@@ -77,7 +78,7 @@ router.delete('/delete/:id', async (req: any, res: any) => {
   }
 });
 
-router.patch('/createTeam/:id', async (req: any, res: any) => {
+router.patch('/createTeam/:id', async (req: Request, res: Response) => {
   let response;
   const id = req.params.id;
   try {

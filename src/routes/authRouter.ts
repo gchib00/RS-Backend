@@ -1,5 +1,5 @@
 import { processNewUser } from "../utils";
-
+import { Request, Response } from 'express';
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user'); 
@@ -11,7 +11,7 @@ const hashPassword = async (password: string) => {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 }
-router.post('/register', async (req: any, res: any) => {
+router.post('/register', async (req: Request, res: Response) => {
   try {
     const processedUser = processNewUser(req.body);
     const newUser = new User({
@@ -26,14 +26,14 @@ router.post('/register', async (req: any, res: any) => {
     if(username){return res.status(400).send('User already exists')};
     if(email){return res.status(400).send('User by this email is already registered')};
     await newUser.save();
-    res.send(newUser);
+    return res.send(newUser);
   } catch (err) {
-    res.status(500).send(`${err}`)
+    return res.status(500).send(`${err}`)
   }
 });
 
 //LOGIN:
-router.post('/login', async (req: any, res: any) => {
+router.post('/login', async (req: Request, res: Response) => {
   try {
     const userData = await User.findOne({username: req.body.username});
     const user = {
@@ -57,7 +57,7 @@ router.post('/login', async (req: any, res: any) => {
 });
 
 //GET LOGGED USER:
-router.post('/loggedUser', async (req: any, res: any) => {
+router.post('/loggedUser', async (req: Request, res: Response) => {
   const token = req.body.token;
   if (token) {
     try {
