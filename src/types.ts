@@ -78,3 +78,18 @@ export interface EmailNotification {
 export interface MessageToSupplier extends EmailNotification {
   orderID: string;
 }
+export interface ImageToSupplier {
+  file: MulterFileObj;
+  orderID: string;
+  emailSender: string;
+}
+export interface MulterFileObj {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
+}

@@ -10,7 +10,9 @@ import {
   EditorEmployeeType,
   User, 
   FAQItem,
-  EmailNotification} from './types';
+  EmailNotification,
+  MulterFileObj,
+  ImageToSupplier} from './types';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -137,7 +139,16 @@ const parseOrderID = (orderID: unknown): string => {
   }
   return orderID;
 };
-/////////
+const parseImageFile = (file: MulterFileObj): MulterFileObj => {
+  if(!file){
+    throw new Error('Image file is missing')
+  }
+  if(file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg') {
+    throw new Error('File is of wrong format! Only .png or .jpg are allowed')
+  }
+  return file;
+};
+ /////////
 
 export const processNewOperationsEmployee = (bodyObj: any): NewEmployeeOperation => {
   const newEmployee: NewEmployeeOperation = { 
@@ -205,3 +216,11 @@ export const processEmailNotification = (bodyObj: any): EmailNotification => {
   }
   return newEmailNotification;
 };
+export const processEmailImage = (bodyObj: any, fileObj: MulterFileObj): ImageToSupplier => {
+  const newEmailImageObj = {
+    emailSender: parseEmail(bodyObj.emailSender),
+    orderID: parseOrderID(bodyObj.orderID),
+    file: parseImageFile(fileObj)
+  }
+  return newEmailImageObj;
+}
