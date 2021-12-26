@@ -27,8 +27,7 @@ export interface NewEmployeeOperation extends NewEmployeeBase {
   subDepartment: AcceptableSubDepartment;
 }
 export enum EmployeeStatus {
-  'onVacation',//type-guards:
-
+  'onVacation',
   'active'
 }
 export enum CSEmployeeType {
@@ -46,6 +45,7 @@ export enum AcceptableSubDepartment {
   'Technical Department',
   'Logistics',
   'Billing Department',
+  'Quality Control',
   'Other'
 }
 export enum AcceptableDepartment {

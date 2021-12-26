@@ -2,16 +2,16 @@ POST http://localhost:3005/employees/add
 content-type: application/json
 
 {
-    "name": "Ethan",
-    "department": "operations",
-    "subDepartment": "Technical Department",
-    "email": "ethan@paintyourlife.com",
-    "phone": "444111222",
-    "status": "active",
-    "shift": {
-      "start": "10:00",
-      "length": 8
-    }
+  "name": "Ben",
+  "department": "operations",
+  "subDepartment": "Other",
+  "email": "ben@fakeMail.com",
+  "phone": "431163122",
+  "status": "active",
+  "shift": {
+    "start": "20:00",
+    "length": 8
+  }
 }
 # {
 #     "name": "Emily",
