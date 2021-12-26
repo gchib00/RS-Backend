@@ -1,0 +1,2 @@
+-Need to pass an empty 'uploads' folder (with a txt file) to heroku, otherwise it will refuse to create an empty uploads folder from scratch as requested in the code 
+-This folder will temporarily hold all the uploaded images as they are being sent via email
